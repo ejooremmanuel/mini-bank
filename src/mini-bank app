@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-04-21T15:22:05.350Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="stnsGW5Hpz8mm0cD6xZi" version="21.2.1" type="github">
+<mxfile host="app.diagrams.net" modified="2023-04-21T15:25:08.446Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="CzsHbJQ2EropEpi3dx2C" version="21.2.1" type="github">
   <diagram name="Page-1" id="P5oTTu3y99wLLtZJGtYu">
     <mxGraphModel dx="1050" dy="549" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
       <root>
@@ -297,6 +297,21 @@
         </mxCell>
         <mxCell id="VeM5e1ODEePo2cNNFRfI-13" value="End" style="ellipse;whiteSpace=wrap;html=1;labelBackgroundColor=none;rounded=1;fillColor=#21C0A5;strokeColor=#006658;fontColor=#5C5C5C;" vertex="1" parent="1">
           <mxGeometry x="650" y="2540" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="VeM5e1ODEePo2cNNFRfI-14" value="Account Managers" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#006658;fontColor=#5C5C5C;fillColor=#21C0A5;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="640" width="140" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="VeM5e1ODEePo2cNNFRfI-15" value="Accounts" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#5C5C5C;rounded=1;" vertex="1" parent="VeM5e1ODEePo2cNNFRfI-14">
+          <mxGeometry y="30" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VeM5e1ODEePo2cNNFRfI-16" value="Name" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#5C5C5C;rounded=1;" vertex="1" parent="VeM5e1ODEePo2cNNFRfI-14">
+          <mxGeometry y="60" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VeM5e1ODEePo2cNNFRfI-17" value="Tasks" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#5C5C5C;rounded=1;" vertex="1" parent="VeM5e1ODEePo2cNNFRfI-14">
+          <mxGeometry y="90" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VeM5e1ODEePo2cNNFRfI-18" value="Tickets" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#5C5C5C;rounded=1;" vertex="1" parent="VeM5e1ODEePo2cNNFRfI-14">
+          <mxGeometry y="120" width="140" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
