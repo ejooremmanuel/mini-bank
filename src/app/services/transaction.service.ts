@@ -66,12 +66,12 @@ export class TransactionService {
     return this.entityManager.save(transaction);
   }
 
-  async getAccountTransactions(nuban: number): Promise<Account[]> {
+  async getAccountTransactions(nuban: number): Promise<Account> {
     const transactions = this.entityManager
       .createQueryBuilder(Account, "account")
       .leftJoinAndSelect("account.transactions", "transactions")
       .where("account.nuban=:nuban", { nuban })
-      .getMany();
+      .getOne();
 
     return transactions;
   }

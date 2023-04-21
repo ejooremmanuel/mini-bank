@@ -28,9 +28,7 @@ export class TransactionController {
     return transaction;
   }
   @Post("history")
-  async history(
-    @RequestBody() request: TransactionRequest
-  ): Promise<Account[]> {
+  async history(@RequestBody() request: TransactionRequest): Promise<Account> {
     const transactions = this.transactionService.getAccountTransactions(
       request.nuban
     );
