@@ -3,6 +3,7 @@ import { TransactionService } from "../services/transaction.service";
 import { TransactionRequest } from "../dto/request/transaction.request";
 import { Transaction } from "../data/entities/transaction.entity";
 import { EntityManager } from "typeorm";
+import { Account } from "../data/entities/account.entity";
 
 @RestController("transaction")
 export class TransactionController {
@@ -25,5 +26,15 @@ export class TransactionController {
       this.transactionService.createWithDrawTransaction(request);
 
     return transaction;
+  }
+  @Post("history")
+  async history(
+    @RequestBody() request: TransactionRequest
+  ): Promise<Account[]> {
+    const transactions = this.transactionService.getAccountTransactions(
+      request.nuban
+    );
+
+    return transactions;
   }
 }
