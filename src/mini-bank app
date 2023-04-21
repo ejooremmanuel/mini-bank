@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-04-21T15:28:24.553Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="6H-RzKbjYExxM3a84NXC" version="21.2.1" type="github">
+<mxfile host="app.diagrams.net" modified="2023-04-21T15:30:50.011Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="0OSnX-DigsoXgVeCLDEK" version="21.2.1" type="github">
   <diagram name="Page-1" id="P5oTTu3y99wLLtZJGtYu">
     <mxGraphModel dx="1050" dy="549" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
       <root>
@@ -323,6 +323,18 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="330" y="730" as="sourcePoint" />
             <mxPoint x="380" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VeM5e1ODEePo2cNNFRfI-22" value="Tasks" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#006658;fontColor=#5C5C5C;fillColor=#21C0A5;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="480" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VeM5e1ODEePo2cNNFRfI-24" value="Name" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#5C5C5C;rounded=1;" vertex="1" parent="VeM5e1ODEePo2cNNFRfI-22">
+          <mxGeometry y="30" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VeM5e1ODEePo2cNNFRfI-27" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=1;strokeColor=#006658;fontColor=#5C5C5C;fillColor=#21C0A5;exitX=1.009;exitY=0.073;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="VeM5e1ODEePo2cNNFRfI-15" target="VeM5e1ODEePo2cNNFRfI-24">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="800" y="680" as="sourcePoint" />
+            <mxPoint x="850" y="630" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
