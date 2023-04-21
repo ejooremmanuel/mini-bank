@@ -12,6 +12,9 @@ import argumentListResolver from "./conf/argument-list-resolver";
 import router from "./conf/router";
 import validator from "./conf/validator";
 import { SecureRequestListener } from "@matchmakerjs/matchmaker-security";
+import { Customer } from "./app/data/entities/cutomer.entity";
+import { Account } from "./app/data/entities/account.entity";
+import { Transaction } from "./app/data/entities/transaction.entity";
 
 process.on("unhandledRejection", (reason) => {
   console.error("unhandledRejection:", reason);
@@ -20,8 +23,15 @@ process.on("unhandledRejection", (reason) => {
 Promise.all<DIContainerModule>([
   createTypeOrmModule(
     SqliteInMemoryConnectionOptions({
-      entities: ["src/app/data/entities/**/*.entity.ts"],
-
+      entities: [
+        "src/app/data/entities/**/*.entity.ts",
+        Customer,
+        Account,
+        Transaction,
+      ],
+      synchronize: true,
+      // database: "test",
+      // type: "sqlite",
     })
   ),
 ]).then((modules) => {
