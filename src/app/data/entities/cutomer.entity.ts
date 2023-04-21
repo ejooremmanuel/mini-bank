@@ -8,7 +8,6 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Account } from "./account.entity";
-import { Transaction } from "./transaction.entity";
 
 @Entity("customer")
 export class Customer {

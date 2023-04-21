@@ -9,7 +9,6 @@ import {
 } from "@matchmakerjs/matchmaker";
 import { Customer } from "../data/entities/cutomer.entity";
 import { IncomingMessage, ServerResponse } from "http";
-import { OrderApiRequest } from "../dto/request/order.request";
 import { CustomerRequest } from "../dto/request/customer-item.request";
 
 @RestController("customer")
