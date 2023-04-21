@@ -1,6 +1,9 @@
 import { Injectable } from "@matchmakerjs/di";
 import { EntityManager } from "typeorm";
-import { Transaction } from "../data/entities/transaction.entity";
+import {
+  Transaction,
+  TransactionType,
+} from "../data/entities/transaction.entity";
 import { TransactionRequest } from "../dto/request/transaction.request";
 import { Account } from "../data/entities/account.entity";
 import { ErrorResponse } from "@matchmakerjs/matchmaker";
@@ -30,6 +33,7 @@ export class TransactionService {
     const transaction = Object.assign(new Transaction(), {
       account: accountData,
       ...data,
+      type: TransactionType.Deposit,
     });
 
     return this.entityManager.save(transaction);
@@ -61,6 +65,7 @@ export class TransactionService {
     const transaction = Object.assign(new Transaction(), {
       account: accountData,
       ...data,
+      type: TransactionType.Withdrawal,
     });
 
     return this.entityManager.save(transaction);
