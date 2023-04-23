@@ -5,5 +5,5 @@ export class CustomerRequest {
   @IsNotEmpty()
   name: string;
 
-  accountNumber: number;
+  accountNumber?: number;
 }

@@ -1,4 +1,9 @@
-import { Post, RequestBody, RestController } from "@matchmakerjs/matchmaker";
+import {
+  Post,
+  RequestBody,
+  RestController,
+  Valid,
+} from "@matchmakerjs/matchmaker";
 import { TransactionService } from "../services/transaction.service";
 import { TransactionRequest } from "../dto/request/transaction.request";
 import { Transaction } from "../data/entities/transaction.entity";
@@ -11,7 +16,7 @@ export class TransactionController {
 
   @Post("deposit")
   async deposit(
-    @RequestBody() request: TransactionRequest
+    @RequestBody() @Valid() request: TransactionRequest
   ): Promise<Transaction> {
     const transaction =
       this.transactionService.createDepositTransaction(request);
@@ -20,7 +25,7 @@ export class TransactionController {
   }
   @Post("withdraw")
   async withdraw(
-    @RequestBody() request: TransactionRequest
+    @RequestBody() @Valid() request: TransactionRequest
   ): Promise<Transaction> {
     const transaction =
       this.transactionService.createWithDrawTransaction(request);

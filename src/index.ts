@@ -30,8 +30,6 @@ Promise.all<DIContainerModule>([
         Transaction,
       ],
       synchronize: true,
-      // database: "test",
-      // type: "sqlite",
     })
   ),
 ]).then((modules) => {

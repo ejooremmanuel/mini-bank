@@ -7,6 +7,7 @@ import {
 import { TransactionRequest } from "../dto/request/transaction.request";
 import { Account } from "../data/entities/account.entity";
 import { ErrorResponse } from "@matchmakerjs/matchmaker";
+import { Transactional } from "@matchmakerjs/matchmaker-typeorm";
 
 @Injectable()
 export class TransactionService {
@@ -71,6 +72,7 @@ export class TransactionService {
     return this.entityManager.save(transaction);
   }
 
+  @Transactional()
   async getAccountTransactions(nuban: number): Promise<Account> {
     const transactions = this.entityManager
       .createQueryBuilder(Account, "account")

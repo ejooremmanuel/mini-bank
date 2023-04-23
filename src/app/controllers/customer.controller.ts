@@ -13,10 +13,7 @@ import { CustomerRequest } from "../dto/request/customer-item.request";
 
 @RestController("customer")
 export class CustomerController {
-  constructor(
-    private entityManager: EntityManager,
-    private customerService: CustomerService
-  ) {}
+  constructor(private customerService: CustomerService) {}
 
   @Post("")
   async createCustomer(
@@ -29,7 +26,8 @@ export class CustomerController {
   @Post("details")
   async getDetails(
     context: HandlerContext<IncomingMessage, ServerResponse>,
-    @RequestBody() request: CustomerRequest
+
+    @RequestBody() @Valid() request: CustomerRequest
   ): Promise<Customer> {
     const data = this.customerService.getAccountDetails(request.accountNumber);
     return data;
