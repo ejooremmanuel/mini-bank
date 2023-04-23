@@ -18,13 +18,8 @@ export class TransactionRequest {
   @IsInt()
   nuban: number;
 
-  @IsNegative({
-    message(validationArguments) {
-      if (validationArguments.value < 0) return "Not allowed";
-    },
-  })
-  @Min(1)
   @IsDefined()
   @IsNotEmpty()
+  @Min(1)
   amount: number;
 }
