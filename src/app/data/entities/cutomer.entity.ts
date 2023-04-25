@@ -8,6 +8,8 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Account } from "./account.entity";
+import { Address } from "./address.entity";
+import { Passport } from "./passport.entity";
 
 @Entity("customer")
 export class Customer {
@@ -15,10 +17,22 @@ export class Customer {
   id: number;
 
   @Column()
-  name: string;
+  first_name: string;
+  @Column()
+  last_name: string;
 
-  @OneToOne(() => Account, (account) => account.customer, {
+  @OneToOne(() => Address, (customer) => customer.customer, {
     cascade: true,
   })
-  accountDetails: Account;
+  address: Address;
+  @OneToOne(() => Passport, (passport) => passport.customer, {
+    cascade: true,
+  })
+  passport: Passport;
+
+  @OneToMany(() => Account, (account) => account.customer, {
+    onUpdate: "CASCADE",
+    cascade: true,
+  })
+  accountDetails: Account[];
 }

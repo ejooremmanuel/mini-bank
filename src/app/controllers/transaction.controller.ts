@@ -1,4 +1,6 @@
 import {
+  Get,
+  PathParameter,
   Post,
   RequestBody,
   RestController,
@@ -32,11 +34,9 @@ export class TransactionController {
 
     return transaction;
   }
-  @Post("history")
-  async history(@RequestBody() request: TransactionRequest): Promise<Account> {
-    const transactions = this.transactionService.getAccountTransactions(
-      request.nuban
-    );
+  @Get("history/:nuban")
+  async history(@PathParameter("nuban") nuban: number): Promise<Account> {
+    const transactions = this.transactionService.getAccountTransactions(nuban);
 
     return transactions;
   }

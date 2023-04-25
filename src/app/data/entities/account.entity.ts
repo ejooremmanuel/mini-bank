@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -9,7 +10,7 @@ import {
 import { Customer } from "./cutomer.entity";
 import { Transaction } from "./transaction.entity";
 
-enum AccountType {
+export enum AccountType {
   Savings = "Savings",
   Corporate = "Corporate",
 }
@@ -26,8 +27,9 @@ export class Account {
   type: string;
   @Column({
     default: 0,
+    type: "double",
   })
-  balance: number;
+  currentBalance: number;
   @Column({
     default: Date.now,
   })
@@ -40,7 +42,9 @@ export class Account {
   @Column({ nullable: true })
   limit: number;
 
-  @OneToOne(() => Customer, (customer) => customer.accountDetails)
+  @ManyToOne(() => Customer, (customer) => customer.accountDetails, {
+    onUpdate: "CASCADE",
+  })
   @JoinColumn()
   customer: Customer;
 

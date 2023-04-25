@@ -15,6 +15,8 @@ import { SecureRequestListener } from "@matchmakerjs/matchmaker-security";
 import { Customer } from "./app/data/entities/cutomer.entity";
 import { Account } from "./app/data/entities/account.entity";
 import { Transaction } from "./app/data/entities/transaction.entity";
+import { Address } from "./app/data/entities/address.entity";
+import { Passport } from "./app/data/entities/passport.entity";
 
 process.on("unhandledRejection", (reason) => {
   console.error("unhandledRejection:", reason);
@@ -24,10 +26,12 @@ Promise.all<DIContainerModule>([
   createTypeOrmModule(
     SqliteInMemoryConnectionOptions({
       entities: [
-        "src/app/data/entities/**/*.entity.ts",
+        "**/entities/*.entity{.ts,.js}",
         Customer,
         Account,
         Transaction,
+        Address,
+        Passport,
       ],
       synchronize: true,
     })

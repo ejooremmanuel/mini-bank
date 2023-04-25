@@ -28,11 +28,18 @@ export class Transaction {
   type: TransactionType;
 
   @Column({
+    type: "double",
+  })
+  balance: number;
+
+  @Column({
     default: Date.now,
   })
   date: Date;
 
-  @Column()
+  @Column({
+    type: "double",
+  })
   amount: number;
   @Column({
     default: Status.Pending,

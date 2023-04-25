@@ -13,6 +13,7 @@ import { Transactional } from "@matchmakerjs/matchmaker-typeorm";
 export class TransactionService {
   constructor(private entityManager: EntityManager) {}
 
+  @Transactional()
   async createDepositTransaction(
     data: TransactionRequest
   ): Promise<Transaction> {
@@ -29,16 +30,24 @@ export class TransactionService {
       });
     }
 
-    accountData.balance += data.amount;
+    if (accountData.limit === accountData.currentBalance) {
+      throw new ErrorResponse(404, {
+        message: "account has reached its limit",
+      });
+    }
 
-    const transaction = Object.assign(new Transaction(), {
-      account: accountData,
-      ...data,
-      type: TransactionType.Deposit,
-    });
+    accountData.currentBalance += data.amount;
+
+    const transaction = new Transaction();
+    transaction.account = accountData;
+    transaction.type = TransactionType.Deposit;
+    transaction.balance = accountData.currentBalance;
+    transaction.amount = data.amount;
 
     return this.entityManager.save(transaction);
   }
+
+  @Transactional()
   async createWithDrawTransaction(
     data: TransactionRequest
   ): Promise<Transaction> {
@@ -55,25 +64,40 @@ export class TransactionService {
       });
     }
 
-    if (accountData.balance === 0 || accountData.balance < data.amount) {
+    if (
+      accountData.currentBalance === 0 ||
+      accountData.currentBalance < data.amount
+    ) {
       throw new ErrorResponse(400, {
         message: "balance insufficient",
       });
     }
 
-    accountData.balance -= data.amount;
+    accountData.currentBalance -= data.amount;
 
-    const transaction = Object.assign(new Transaction(), {
-      account: accountData,
-      ...data,
-      type: TransactionType.Withdrawal,
-    });
+    const transaction = new Transaction();
+    transaction.account = accountData;
+    transaction.type = TransactionType.Withdrawal;
+    transaction.balance = accountData.currentBalance;
+    transaction.amount = data.amount;
 
     return this.entityManager.save(transaction);
   }
 
   @Transactional()
   async getAccountTransactions(nuban: number): Promise<Account> {
+    const accountData = await this.entityManager.findOne(Account, {
+      where: {
+        nuban,
+      },
+    });
+
+    if (!accountData) {
+      throw new ErrorResponse(404, {
+        message:
+          "account number provided is not assigned to a customer or not in use",
+      });
+    }
     const transactions = this.entityManager
       .createQueryBuilder(Account, "account")
       .leftJoinAndSelect("account.transactions", "transactions")
