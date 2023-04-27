@@ -18,6 +18,7 @@ import { AdditionalAccountRequest } from "../dto/request/additional-account.requ
 import { IsInt } from "class-validator";
 import { SearchResult } from "../dto/request/search-result";
 import { PageRequest } from "../dto/request/page-request";
+import { ApiResponse } from "../dto/response/api.response";
 
 @RestController("customer")
 export class CustomerController {
@@ -51,11 +52,12 @@ export class CustomerController {
     context: HandlerContext<IncomingMessage, ServerResponse>,
     @PathParameter("customerId") customerId: string,
     @RequestBody() @Valid() data: CustomerRequest
-  ): Promise<unknown> {
+  ): Promise<ApiResponse<Promise<number>>> {
     const res = this.customerService.updateCustomer(data, parseInt(customerId));
     return {
       data: res,
       success: true,
+      message: "Customer updated successfully",
     };
   }
   @Put("account-details/:customerId")

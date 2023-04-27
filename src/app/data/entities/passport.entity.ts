@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Exclusion,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -13,7 +14,7 @@ export class Passport {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({})
   link: string;
 
   @CreateDateColumn({ default: Date.now })
