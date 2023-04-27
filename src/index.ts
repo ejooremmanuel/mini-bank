@@ -18,15 +18,16 @@ import { Transaction } from "./app/data/entities/transaction.entity";
 import { Address } from "./app/data/entities/address.entity";
 import { Passport } from "./app/data/entities/passport.entity";
 
-process.on("unhandledRejection", (reason) => {
-  console.error("unhandledRejection:", reason);
-});
+// process.on("unhandledRejection", (reason) => {
+//   console.error("unhandledRejection:", reason);
+// });
+// console.log(__dirname + "/data/entities/*.entity.ts");
 
 Promise.all<DIContainerModule>([
   createTypeOrmModule(
     SqliteInMemoryConnectionOptions({
       entities: [
-        "**/entities/*.entity{.ts,.js}",
+        // "src/data/entities/*.entity.ts",
         Customer,
         Account,
         Transaction,
@@ -34,6 +35,7 @@ Promise.all<DIContainerModule>([
         Passport,
       ],
       synchronize: true,
+      database: "./data/db.sqlite3",
     })
   ),
 ]).then((modules) => {

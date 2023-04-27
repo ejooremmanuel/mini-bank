@@ -19,25 +19,25 @@ export class TransactionController {
   @Post("deposit")
   async deposit(
     @RequestBody() @Valid() request: TransactionRequest
-  ): Promise<Transaction> {
+  ): Promise<unknown> {
     const transaction =
       this.transactionService.createDepositTransaction(request);
 
-    return transaction;
+    return { data: transaction, success: true };
   }
   @Post("withdraw")
   async withdraw(
     @RequestBody() @Valid() request: TransactionRequest
-  ): Promise<Transaction> {
+  ): Promise<unknown> {
     const transaction =
       this.transactionService.createWithDrawTransaction(request);
 
-    return transaction;
+    return { data: transaction, success: true };
   }
   @Get("history/:nuban")
-  async history(@PathParameter("nuban") nuban: number): Promise<Account> {
+  async history(@PathParameter("nuban") nuban: number): Promise<unknown> {
     const transactions = this.transactionService.getAccountTransactions(nuban);
 
-    return transactions;
+    return { data: transactions, success: true };
   }
 }

@@ -6,17 +6,22 @@ import { Account, AccountType } from "../data/entities/account.entity";
 import { ErrorResponse } from "@matchmakerjs/matchmaker";
 import { Transactional } from "@matchmakerjs/matchmaker-typeorm";
 import { Address } from "../data/entities/address.entity";
+import { Passport } from "../data/entities/passport.entity";
+import { PageRequest } from "../dto/request/page-request";
 
 @Injectable()
 export class CustomerService {
   constructor(private entityManager: EntityManager) {}
   @Transactional()
-  async saveCustomer(data: CustomerRequest): Promise<Customer> {
+  async saveCustomerData(data: CustomerRequest): Promise<Customer> {
     const accountDetails = await this.createAccountNumber();
     const customer = await this.createNewCustomerData(data);
     const address = await this.createAddress(data);
+    const passport = await this.createPassport(data);
     customer.accountDetails = [accountDetails];
     customer.address = address;
+    customer.passport = passport;
+
     return this.entityManager.save(customer);
   }
   @Transactional()
@@ -83,6 +88,27 @@ export class CustomerService {
 
     return res;
   }
+  @Transactional()
+  async getAllCustomers(query: PageRequest): Promise<Customer[]> {
+    const res = await this.entityManager
+      .createQueryBuilder(Customer, "customer")
+      .leftJoinAndSelect("customer.accountDetails", "accountDetails")
+      .leftJoinAndSelect("customer.address", "address")
+      .leftJoinAndSelect("customer.passport", "passport")
+      .skip(query.offset)
+      .limit(query.limit)
+      .getMany();
+
+    return res;
+  }
+  @Transactional()
+  async getAllCustomersCount(): Promise<number> {
+    const res = await this.entityManager
+      .createQueryBuilder(Customer, "customer")
+      .getCount();
+
+    return res;
+  }
 
   private createAccountNumber = async (
     type: AccountType = AccountType.Savings
@@ -142,5 +168,12 @@ export class CustomerService {
     address.state = data.state;
 
     return address;
+  };
+  private createPassport = async (data: CustomerRequest): Promise<Passport> => {
+    const passport = new Passport();
+    passport.link =
+      "https://firebasestorage.googleapis.com/v0/b/uploader-32424.appspot.com/o/Welcome%20Scan.jpg?alt=media&token=97e74a6d-052b-47c4-a4fb-0294ca4972e8";
+
+    return passport;
   };
 }

@@ -8,11 +8,16 @@ import {
   Valid,
   PathParameter,
   Put,
+  QueryParameter,
+  Query,
 } from "@matchmakerjs/matchmaker";
 import { Customer } from "../data/entities/cutomer.entity";
 import { IncomingMessage, ServerResponse } from "http";
 import { CustomerRequest } from "../dto/request/customer-item.request";
 import { AdditionalAccountRequest } from "../dto/request/additional-account.request";
+import { IsInt } from "class-validator";
+import { SearchResult } from "../dto/request/search-result";
+import { PageRequest } from "../dto/request/page-request";
 
 @RestController("customer")
 export class CustomerController {
@@ -22,38 +27,68 @@ export class CustomerController {
   async createCustomer(
     context: HandlerContext<IncomingMessage, ServerResponse>,
     @RequestBody() @Valid() request: CustomerRequest
-  ): Promise<Customer> {
-    const data = this.customerService.saveCustomer(request);
-    return data;
+  ): Promise<unknown> {
+    const data = await this.customerService.saveCustomerData(request);
+    return { data, message: "customer created", success: true };
   }
   @Get("details/:accountNumber")
+  @IsInt()
   async getDetails(
     context: HandlerContext<IncomingMessage, ServerResponse>,
 
-    @PathParameter("accountNumber") @Valid() nuban: number
-  ): Promise<Customer> {
-    const data = this.customerService.getAccountDetails(nuban);
-    return data;
+    @PathParameter("accountNumber")
+    @Valid()
+    nuban: number
+  ) {
+    const data = await this.customerService.getAccountDetails(nuban);
+    return {
+      data,
+      success: true,
+    };
   }
   @Put("details/:customerId")
   async update(
     context: HandlerContext<IncomingMessage, ServerResponse>,
     @PathParameter("customerId") customerId: string,
     @RequestBody() @Valid() data: CustomerRequest
-  ): Promise<number> {
+  ): Promise<unknown> {
     const res = this.customerService.updateCustomer(data, parseInt(customerId));
-    return res;
+    return {
+      data: res,
+      success: true,
+    };
   }
   @Put("account-details/:customerId")
   async additionalAccount(
     context: HandlerContext<IncomingMessage, ServerResponse>,
     @PathParameter("customerId") customerId: string,
     @RequestBody() @Valid() data: AdditionalAccountRequest
-  ): Promise<Customer> {
+  ): Promise<unknown> {
     const res = this.customerService.createAdditionalAccount(
       data.type,
       parseInt(customerId)
     );
-    return res;
+    return {
+      data: res,
+      success: true,
+    };
+  }
+  @Get("all")
+  async allCustomers(
+    context: HandlerContext<IncomingMessage, ServerResponse>,
+    @Query() query: PageRequest
+  ): Promise<SearchResult<Customer>> {
+    query.limit = PageRequest.getLimit(query.limit, 10);
+
+    query.offset = PageRequest.getOffset(query.offset);
+
+    const res = await this.customerService.getAllCustomers(query);
+    const count = await this.customerService.getAllCustomersCount();
+    return {
+      limit: query.limit,
+      offset: query.offset,
+      results: res,
+      total: PageRequest.computeTotal(query.limit, query.offset, count),
+    };
   }
 }
