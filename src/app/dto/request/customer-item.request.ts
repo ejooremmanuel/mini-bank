@@ -19,6 +19,4 @@ export class CustomerRequest {
   state: string;
 
   type?: AccountType;
-
-  accountNumber?: number;
 }

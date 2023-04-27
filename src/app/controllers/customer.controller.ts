@@ -33,12 +33,9 @@ export class CustomerController {
     return { data, message: "customer created", success: true };
   }
   @Get("details/:accountNumber")
-  @IsInt()
   async getDetails(
     context: HandlerContext<IncomingMessage, ServerResponse>,
-
     @PathParameter("accountNumber")
-    @Valid()
     nuban: number
   ) {
     const data = await this.customerService.getAccountDetails(nuban);
@@ -50,10 +47,10 @@ export class CustomerController {
   @Put("details/:customerId")
   async update(
     context: HandlerContext<IncomingMessage, ServerResponse>,
-    @PathParameter("customerId") customerId: string,
+    @PathParameter("customerId") customerId: number,
     @RequestBody() @Valid() data: CustomerRequest
-  ): Promise<ApiResponse<Promise<number>>> {
-    const res = this.customerService.updateCustomer(data, parseInt(customerId));
+  ): Promise<ApiResponse<number>> {
+    const res = await this.customerService.updateCustomer(data, customerId);
     return {
       data: res,
       success: true,
@@ -63,15 +60,15 @@ export class CustomerController {
   @Put("account-details/:customerId")
   async additionalAccount(
     context: HandlerContext<IncomingMessage, ServerResponse>,
-    @PathParameter("customerId") customerId: string,
+    @PathParameter("customerId") customerId: number,
     @RequestBody() @Valid() data: AdditionalAccountRequest
-  ): Promise<unknown> {
-    const res = this.customerService.createAdditionalAccount(
+  ): Promise<ApiResponse<number>> {
+    const res = await this.customerService.createAdditionalAccount(
       data.type,
-      parseInt(customerId)
+      customerId
     );
     return {
-      data: res,
+      data: customerId,
       success: true,
     };
   }

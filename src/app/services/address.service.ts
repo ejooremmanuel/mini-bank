@@ -3,15 +3,17 @@ import { EntityManager } from "typeorm";
 import { Address } from "../data/entities/address.entity";
 import { AddressRequest } from "../dto/request/address.request";
 import { ErrorResponse } from "@matchmakerjs/matchmaker";
+import { Transactional } from "@matchmakerjs/matchmaker-typeorm";
 
 @Injectable()
 export class AddressService {
   constructor(private entityManager: EntityManager) {}
 
-  updateAddress = async (
+  @Transactional()
+  async updateAddress(
     addressId: number,
     body: AddressRequest
-  ): Promise<number> => {
+  ): Promise<number> {
     const recordExists = await this.entityManager.findOne(Address, {
       where: { id: addressId },
     });
@@ -34,5 +36,5 @@ export class AddressService {
       .execute();
 
     return addressId;
-  };
+  }
 }
